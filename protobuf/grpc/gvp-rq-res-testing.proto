@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+import "grpc/gvp-model.proto";
+
+//-------------------FOR TESTING ONLY--------------------------------//
+message TestCreateUserRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  USER_ROLE role = 4;
+}
+
+message TestCreateUserResponse {
+  string username = 1;
+  string email = 2;
+  USER_ROLE role = 3;
+}
+
+
+message TestRequest {
+}
+
+message TestResponse {
+}

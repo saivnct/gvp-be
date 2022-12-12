@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+import "grpc/gvp-model.proto";
+
+
+
+//-------------------CREATE CATEGORY--------------------------------//
+message CreateCategoryRequest {
+  string catName = 1;
+  string catDescription = 2;
+}
+
+message CreateCategoryResponse {
+  CategoryInfo categoryInfo = 1;
+}
+
+//-------------------UPDATE CATEGORY--------------------------------//
+message UpdateCategoryRequest {
+  string catId = 1;
+  string catName = 2;
+  string catDescription = 3;
+}
+
+message UpdateCategoryResponse {
+  CategoryInfo categoryInfo = 1;
+}
+
+//-------------------DELETE CATEGORY--------------------------------//
+message DeleteCategoryRequest {
+  string catId = 1;
+}
+
+message DeleteCategoryResponse {
+  string catId = 1;
+}
+
+//-------------------GET CATEGORY INFO--------------------------------//
+message GetCategoryRequest {
+  string catId = 1;
+}
+
+message GetCategoryResponse {
+  CategoryInfo categoryInfo = 1;
+}
+
+//-------------------ALL CATEGORY LIST--------------------------------//
+message GetAllCategoryRequest {
+}
+
+message GetAllCategoryResponse {
+  repeated CategoryInfo categoryInfos = 1;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+1. run server
+    go run main.go
+
+2. run client test
+    go run client_main.go
+
+    - create users: admin, normal, content provider
+
+    - create/update/delete category   (admin,mod)
+
+    - create/update/delete news       (admin,mod,content provider)
+
+
+    - read category (any)
+    - read news (any)
+

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+import "grpc/gvp-model.proto";
+
+
+
+//-------------------CREATE COMMENT--------------------------------//
+message CreateNewsCommentRequest {
+  string newsId = 1;
+  string parentCommentId = 2;
+  string content = 3;
+}
+
+message CreateNewsCommentResponse {
+  NewsCommentInfo newsCommentInfo = 1;
+}
+
+//-------------------UPDATE COMMENT--------------------------------//
+message UpdateNewsCommentRequest {
+  string commentId = 1;
+  string content = 2;
+}
+
+message UpdateNewsCommentResponse {
+  NewsCommentInfo newsCommentInfo = 1;
+}
+
+//-------------------DELETE COMMENT--------------------------------//
+message DeleteNewsCommentRequest {
+  string commentId = 1;
+}
+
+message DeleteNewsCommentResponse {
+  string commentId = 1;
+}
+
+
+//-------------------GET COMMENT LIST--------------------------------//
+message GetNewsCommentsRequest {
+  string newsId = 1;
+  string parentCommentId = 2;
+  int64 page = 3;
+  int64 pageSize = 4;
+}
+
+message GetNewsCommentsResponse {
+  int64 page = 1;
+  int64 pageSize = 2;
+  int64 totalItem = 3;
+  repeated NewsCommentInfo newsCommentInfo = 4;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+
+
+//-------------------GET TAG LIST--------------------------------//
+message GetNewsTagsRequest {
+  int64 page = 1;
+  int64 pageSize = 2;
+}
+
+message GetNewsTagsResponse {
+  int64 page = 1;
+  int64 pageSize = 2;
+  int64 totalItem = 3;
+  repeated string tags = 4;
+}
+
+
+
+
+
+
+

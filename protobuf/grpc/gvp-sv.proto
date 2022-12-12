@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+
+import "grpc/gvp-rq-res-account.proto";
+import "grpc/gvp-rq-res-news-category.proto";
+import "grpc/gvp-rq-res-news-comments.proto";
+import "grpc/gvp-rq-res-news-tags.proto";
+import "grpc/gvp-rq-res-news-participants.proto";
+import "grpc/gvp-rq-res-news.proto";
+import "grpc/gvp-rq-res-file.proto";
+import "grpc/gvp-rq-res-testing.proto";
+
+
+service XVPService{
+  //User APIs
+  rpc CreatUser (CreatAccountRequest) returns (CreatAccountResponse);
+  rpc VerifyAuthencode (VerifyAuthencodeRequest) returns (VerifyAuthencodeResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc UpdateProfile (UpdateProfileRequest) returns (UpdateProfileResponse);
+  rpc UploadUserAvatar (stream UploadUserAvatarRequest) returns (UploadUserAvatarResponse);
+  rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoResponse);
+
+
+  //Catgory APIs
+  rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse);
+  rpc UpdateCategory (UpdateCategoryRequest) returns (UpdateCategoryResponse);
+  rpc DeleteCategory (DeleteCategoryRequest) returns (DeleteCategoryResponse);
+  rpc GetCategory (GetCategoryRequest) returns (GetCategoryResponse);
+  rpc GetAllCategory (GetAllCategoryRequest) returns (GetAllCategoryResponse);
+
+
+  //News APIs
+  rpc CreateNews (CreateNewsRequest) returns (CreateNewsResponse);
+  rpc UpdateNewsInfo (UpdateNewsInfoRequest) returns (UpdateNewsInfoResponse);
+  rpc DeleteNews (DeleteNewsRequest) returns (DeleteNewsResponse);
+
+  rpc UploadNewsPreviewImage (stream UploadNewsPreviewImageRequest) returns (UploadNewsPreviewImageResponse);
+  rpc DeleteNewsPreviewImage (DeleteNewsPreviewImageRequest) returns (DeleteNewsPreviewImageResponse);
+
+  rpc UploadNewsMedia (stream UploadNewsMediaRequest) returns (UploadNewsMediaResponse);
+  rpc DeleteNewsMedia (DeleteNewsMediaRequest) returns (DeleteNewsMediaResponse);
+
+  rpc GetNews (GetNewsRequest) returns (GetNewsResponse);
+  rpc GetListNews (GetListNewsRequest) returns (GetListNewsResponse);
+  rpc GetManagerListNews (GetManagerListNewsRequest) returns (GetManagerListNewsResponse);
+
+  rpc GetListTopNews (GetListTopNewsRequest) returns (GetListTopNewsResponse);
+
+  rpc LikeNews (LikeNewsRequest) returns (LikeNewsResponse);
+  rpc RateNews (RateNewsRequest) returns (RateNewsResponse);
+
+  //News Comment APIs
+  rpc CreateNewsComment (CreateNewsCommentRequest) returns (CreateNewsCommentResponse);
+  rpc UpdateNewsComment (UpdateNewsCommentRequest) returns (UpdateNewsCommentResponse);
+  rpc DeleteNewsComment (DeleteNewsCommentRequest) returns (DeleteNewsCommentResponse);
+  rpc GetNewsComments (GetNewsCommentsRequest) returns (GetNewsCommentsResponse);
+
+  //News Tags APIs
+  rpc GetNewsTags (GetNewsTagsRequest) returns (GetNewsTagsResponse);
+
+  //News Participants APIs
+  rpc GetNewsParticipants (GetNewsParticipantsRequest) returns (GetNewsParticipantsResponse);
+
+
+  //File APIs
+  rpc DownloadFile(DownloadFileRequest) returns (stream DownloadFileResponse) {}; //server streaming
+  rpc GetFilePresignedUrl(GetFilePresignedUrlRequest) returns (GetFilePresignedUrlResponse) {}; //server streaming
+  rpc GetFileInfo(GetFileInfolRequest) returns (GetFileInfolResponse) {}; //server streaming
+
+
+
+  //FOR TESTING ONLY
+  rpc TestCreateUser (TestCreateUserRequest) returns (TestCreateUserResponse);
+  rpc Test (TestRequest) returns (TestResponse);
+
+
+}

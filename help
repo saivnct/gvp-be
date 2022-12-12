@@ -1,0 +1,47 @@
+nano ~/.zshrc
+    export GOPATH=$HOME/golang
+    export GOROOT=/usr/local/opt/go/libexec
+    export GOBIN=$GOPATH/bin
+    export PATH=$PATH:$GOPATH
+    export PATH=$PATH:$GOROOT/bin
+
+installation protoc:
+    go get -u google.golang.org/protobuf/cmd/protoc-gen-go
+    go install google.golang.org/protobuf/cmd/protoc-gen-go
+
+    go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
+
+    ubuntu:
+        https://github.com/protocolbuffers/protobuf/releases
+            -> download for linux-x86_64
+        unzip -> mv to /usr/local
+        nano ~/.bashrc
+            export PATH=$PATH:/usr/local/protoc-21.5/bin
+
+
+
+
+
+go run main.go -h 8001 -g 5005
+
+install evans CLI
+    https://github.com/ktr0731/evans
+
+using evans reflection
+     evans -p 50050 -r
+
+mongodb go-driver
+    https://github.com/mongodb/mongo-go-driver
+    https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo
+
+
+
+//compile all
+protoc --proto_path protobuf --plugin=$(go env GOPATH)/bin/protoc-gen-go-grpc --go-grpc_out=./ --go_out=./ --go_opt=module=ivra.go/xvp --go-grpc_opt=module=ivra.go/xvp -I=protobuf protobuf/**/*.proto
+
+//Go Build Executables for Multiple Platforms
+go tool dist list
+    linux/amd64
+
+GOOS=linux GOARCH=amd64 go build -o xvp main.go

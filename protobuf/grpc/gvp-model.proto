@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+
+
+//-------------------TOP--------------------------------//
+enum TOP_TIME_TYPE {
+  ALL = 0;
+  WEEK = 1;
+  MONTH = 2;
+}
+
+enum TOP_TYPE {
+  VIEWS = 0;
+  LIKES = 1;
+  RATING = 2;
+}
+
+
+//-------------------USER--------------------------------//
+enum USER_GENDER {
+  GENDER_NONE = 0;
+  MALE = 1;
+  FEMALE = 2;
+}
+
+enum USER_ROLE {
+  GUEST = 0;
+  NORMAL_USER = 1;
+  CONTENT_USER = 2;
+  KOL_USER = 3;
+  MODERATOR = 99;
+  ADMIN = 999;
+  SUPER_ADMIN = 9999;
+}
+
+message UserAvatarInfo {
+  string fileId = 1;
+  string fileUrl = 2; //if not empty -> file from other systems ; if empty -> file from this system
+}
+
+message UserInfo {
+  string username = 1;
+  string email = 2;
+  USER_ROLE role = 3; //will not be shown to others
+  string firstName = 4;
+  string lastName = 5;
+  UserAvatarInfo userAvatarInfo = 6;
+  USER_GENDER gender = 7;
+  string phoneNumber = 8; //will not be shown to others
+  int64 birthday = 9; //will not be shown to others
+}
+
+
+
+//-------------------NEWS--------------------------------//
+enum NEWS_STATUS {
+  PENDING = 0;
+  ACTIVED = 1;
+  INACTIVED = 2;
+}
+
+enum MEDIA_STREAM_TYPE {
+  UNKNOWN_STREAM_TYPE = 0;
+  BUFFERING = 1;
+  ON_DEMAND = 2;  // using on demand HLS/DASH media
+}
+
+enum MEDIA_TYPE {
+  NONE_MEDIA_TYPE = 0;
+  VIDEO = 1;
+  AUDIO = 2;
+  IMAGE = 3;
+}
+
+enum VIDEO_RESOLUTION {
+  NONE_RESOLUTION = 0;
+  SD_L = 1; //240p
+  SD_M = 2; //360p
+  SD = 3; //480p
+  HD = 4; //720p
+  FHD = 5;  //1080p
+  FHD_H = 6;  //2K - 1080p
+  QHD = 7; //1440p
+  UHD = 8; //4K or 2160p
+  FUHD = 9; //8K or 4320p
+}
+
+message FileInfo {
+  string fileId = 1;
+  string fileName = 2;
+  MEDIA_TYPE mediaType = 3;
+  MEDIA_STREAM_TYPE mediaStreamType = 4;
+  optional VIDEO_RESOLUTION resolution = 5;
+  string checksum = 6;
+}
+
+
+message MediaInfo {
+  string fileId = 1;
+  string fileName = 2;
+  string fileUrl = 3; //if not empty -> file from other systems ; if empty -> file from this system
+  MEDIA_TYPE mediaType = 4;
+  MEDIA_STREAM_TYPE mediaStreamType = 5;
+  optional VIDEO_RESOLUTION resolution = 6;
+  string checksum = 7;
+}
+
+message PreviewImageInfo {
+  string fileId = 1;
+  string fileName = 2;
+  string fileUrl = 3; //if not empty -> file from other systems ; if empty -> file from this system
+  bool mainPreview = 4;
+  string checksum = 5;
+  MEDIA_TYPE mediaType = 6;
+}
+
+
+message CategoryInfo {
+  string catId = 1;
+  string catName = 2;
+  string catDescription = 3;
+}
+
+message NewsCommentInfo {
+  string newsId = 1;
+  string commentId = 2;
+  repeated string commentAncestors = 3;
+  string username = 4;
+  string content = 5;
+  int64 commentAt = 6;
+}
+
+message NewsInfo {
+  string newsId = 1;
+  string author = 2;
+  string title = 3;
+  repeated string participants = 4;
+  string description = 5;
+  repeated string catIds = 6;
+  repeated string tags = 7;
+  bool enableComment = 8;
+  repeated PreviewImageInfo previewImageInfos = 9;
+  repeated MediaInfo mediaInfos = 10;
+  string mediaEncKey = 11;
+  string mediaEncIV = 12;
+  int64 view = 13;
+  int64 likes = 14;
+  bool likedByRequestedSession = 15;
+  double rating = 16;
+  bool ratedByRequestedSession = 17;
+  NEWS_STATUS status = 18;
+
+  int64 weekViews = 19;
+  int64 monthViews = 20;
+  int64 currentViewsWeek = 21;
+  int64 currentViewsMonth = 22;
+
+  int64 weekLikes = 23;
+  int64 monthLikes = 24;
+  int64 currentLikesWeek = 25;
+  int64 currentLikesMonth = 26;
+}

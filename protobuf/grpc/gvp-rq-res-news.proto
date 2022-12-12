@@ -1,0 +1,196 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+import "grpc/gvp-model.proto";
+
+//-------------------GET NEWS--------------------------------//
+message GetNewsRequest {
+  string newsId = 1;
+}
+
+message GetNewsResponse {
+  NewsInfo newsInfo = 1;
+}
+
+//-------------------GET LIST NEWS--------------------------------//
+message GetListNewsRequest {
+  repeated string catIds = 1;
+  repeated string tags = 2;
+  repeated string participants = 3;
+  string searchPhrase = 4;      //search for title, participants
+  string author = 5;
+  int64 page = 6;
+  int64 pageSize = 7;
+}
+
+message GetListNewsResponse {
+  int64 page = 1;
+  int64 pageSize = 2;
+  int64 totalItem = 3;
+  repeated NewsInfo newsInfos = 4;
+}
+
+//-------------------GET MANAGER'S LIST NEWS--------------------------------//
+message GetManagerListNewsRequest {
+  repeated string catIds = 1;
+  repeated string tags = 2;
+  repeated string participants = 3;
+  string searchPhrase = 4;      //search for title, participants
+  string author = 5;
+  int64 page = 6;
+  int64 pageSize = 7;
+}
+
+message GetManagerListNewsResponse {
+  int64 page = 1;
+  int64 pageSize = 2;
+  int64 totalItem = 3;
+  repeated NewsInfo newsInfos = 4;
+}
+
+//-------------------GET LIST TOP NEWS--------------------------------//
+message GetListTopNewsRequest {
+  int32 limit = 1;
+  TOP_TYPE topType = 2;
+  TOP_TIME_TYPE topTimeType = 3;
+}
+
+message GetListTopNewsResponse {
+  repeated NewsInfo newsInfos = 1;
+}
+
+
+//-------------------CREATE NEWS INFO--------------------------------//
+message CreateNewsRequest {
+  string title = 1;
+  string description = 2;
+  repeated string participants = 3;
+  repeated string catIds = 4;
+  repeated string tags = 5;
+  bool enableComment = 6;
+}
+
+message CreateNewsResponse {
+  NewsInfo newsInfo = 1;
+}
+
+
+//-------------------UPDATE NEWS INFO--------------------------------//
+message UpdateNewsInfoRequest {
+  string newsId = 1;
+  string title = 2;
+  string description = 3;
+  repeated string participants = 4;
+  repeated string catIds = 5;
+  repeated string tags = 6;
+  bool enableComment = 7;
+}
+
+message UpdateNewsInfoResponse {
+  NewsInfo newsInfo = 1;
+}
+
+//-------------------LIKE NEWS--------------------------------//
+message LikeNewsRequest {
+  string newsId = 1;
+}
+
+message LikeNewsResponse {
+  NewsInfo newsInfo = 1;
+}
+
+//-------------------RATE NEWS--------------------------------//
+message RateNewsRequest {
+  string newsId = 1;
+  int32 point = 2; //from 0 to 5
+}
+
+message RateNewsResponse {
+  NewsInfo newsInfo = 1;
+}
+
+
+
+
+//-------------------DELETE NEWS--------------------------------//
+message DeleteNewsRequest {
+  string newsId = 1;
+}
+
+message DeleteNewsResponse {
+  string newsId = 1;
+}
+
+
+
+
+
+//-------------------UPLOAD NEWS's PREVIEW IMAGE--------------------------------//
+message UploadNewsPreviewImageInfo{
+  string newsId = 1;
+  string fileUrl = 2;
+  string fileName = 3;
+  string checksum = 4;
+  bool mainPreview = 5;
+  MEDIA_TYPE mediaType = 6;
+}
+
+message UploadNewsPreviewImageRequest {
+  oneof data {    // We use a "oneof" field here because the first request will only contain the metadata, next requests will contain chunk_data
+    UploadNewsPreviewImageInfo uploadNewsPreviewImageInfo = 1;  // if  fileUrl != null => chunk_data doesn't exist
+    bytes chunk_data = 2;
+  };
+}
+
+message UploadNewsPreviewImageResponse {
+  NewsInfo newsInfo = 1;
+}
+
+//-------------------DELETE NEWS's PREVIEW IMAGE--------------------------------//
+
+message DeleteNewsPreviewImageRequest {
+  string newsId = 1;
+  string fileId = 2;
+}
+
+message DeleteNewsPreviewImageResponse {
+  NewsInfo newsInfo = 1;
+}
+
+
+//-------------------UPLOAD NEWS's MEDIA--------------------------------//
+message UploadNewsMediaInfo{
+  string newsId = 1;
+  string fileUrl = 2;
+  string fileName = 3;
+  MEDIA_TYPE mediaType = 4;
+  optional VIDEO_RESOLUTION resolution = 7; // existed only if  mediaType = VIDEO && MEDIA_STREAM_TYPE = ON_DEMAND
+  string checksum = 8;
+  MEDIA_STREAM_TYPE mediaStreamType = 9;
+  string mediaEncKey = 10;
+  bool onDemandMediaMainFile = 11;
+  string onDemandMediaMainFileId = 12;
+}
+
+message UploadNewsMediaRequest {
+  oneof data {    // We use a "oneof" field here because the first request will only contain the metadata, next requests will contain chunk_data
+    UploadNewsMediaInfo uploadNewsMediaInfo = 1;  // if  fileUrl != null => chunk_data doesn't exist
+    bytes chunk_data = 2;
+  };
+}
+
+message UploadNewsMediaResponse {
+  NewsInfo newsInfo = 1;
+  string fileId = 2;
+}
+
+//-------------------DELETE NEWS's MEDIA--------------------------------//
+message DeleteNewsMediaRequest {
+  string newsId = 1;
+  string fileId = 2;
+}
+
+message DeleteNewsMediaResponse {
+  NewsInfo newsInfo = 1;
+}

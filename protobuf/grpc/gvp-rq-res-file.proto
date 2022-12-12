@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+import "grpc/gvp-model.proto";
+
+//-------------------DOWNLOAD MEDIA FILE--------------------------------//
+message DownloadFileRequest {
+  string fileId = 1;
+}
+
+message DownloadFileResponse {
+  oneof data {    // We use a "oneof" field here because the first request will only contain the metadata, next requests will contain chunk_data
+    FileInfo fileInfo = 1;
+    bytes chunk_data = 2;
+  };
+}
+
+//-------------------GET MEDIA FILE PRESIGNED URL--------------------------------//
+message GetFilePresignedUrlRequest {
+  string fileId = 1;
+}
+
+message GetFilePresignedUrlResponse {
+  string url = 1;
+}
+
+//-------------------GET MEDIA FILE INFO--------------------------------//
+message GetFileInfolRequest {
+  string fileId = 1;
+}
+
+message GetFileInfolResponse {
+  FileInfo fileInfo = 1;
+}

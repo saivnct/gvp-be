@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package grpcXVPPb;
+option go_package="gbb.go/gvp/proto/grpcXVPPb";
+import "grpc/gvp-model.proto";
+
+//-------------------CREATE ACCOUNT--------------------------------//
+message CreatAccountRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message CreatAccountResponse {
+  string username = 1;
+  string email = 2;
+  int32 authenCodeTimeOut = 3;
+}
+
+//-------------------VERIFY AUTHENCODE--------------------------------//
+
+message VerifyAuthencodeRequest {
+  string username = 1;
+  string email = 2;
+  string authencode = 3;
+}
+
+message VerifyAuthencodeResponse {
+  string username = 1;
+  string email = 2;
+}
+
+//-------------------LOGIN--------------------------------//
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string jwt = 1;
+  int32 jwtTTL = 2; //minutes
+}
+
+//-------------------UPDATE PROFILE--------------------------------//
+message UpdateProfileRequest {
+  string firstName = 1;
+  string lastName = 2;
+  string phoneNumber = 3;
+  USER_GENDER gender = 4;
+  int64 birthday = 5;
+}
+
+message UpdateProfileResponse {
+  UserInfo userInfo = 1;
+}
+
+//-------------------UPLOAD AVATAR--------------------------------//
+message UploadUserAvatarInfo{
+  string fileUrl = 1;
+  string checksum = 3;
+}
+
+message UploadUserAvatarRequest {
+  oneof data {    // We use a "oneof" field here because the first request will only contain the metadata, next requests will contain chunk_data
+    UploadUserAvatarInfo uploadUserAvatarInfo = 1;  // if  fileUrl != null => chunk_data doesn't exist
+    bytes chunk_data = 2;
+  };
+}
+
+message UploadUserAvatarResponse {
+  UserInfo userInfo = 1;
+}
+
+
+
+//-------------------GET INFO--------------------------------//
+message GetUserInfoRequest {
+  string username = 1;
+}
+
+message GetUserInfoResponse {
+  UserInfo userInfo = 1;
+}
